@@ -1,6 +1,7 @@
 # OpenLayers - Bootstrap 
 
 ## Setup
+Install Node 8+ and the below dependencies.
 
 After extracting the zip, change into the `bootstrap-viewer-template` directory and install some additional dependencies:
 

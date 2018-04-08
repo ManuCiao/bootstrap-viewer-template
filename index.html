@@ -6,89 +6,18 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
   <title>MapStand</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
   <link rel="stylesheet" href="../assets/css/ol.css" />
+  <link rel="stylesheet" href="../assets/ol3-layerswitcher.css" />
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ol3/4.0.1/ol.css" />
   <style type="text/css">
-    body {
-      overflow: hidden;
-    }
-
-    .navbar-offset {
-      margin-top: 50px;
-    }
-
-    #map {
-      position: absolute;
-      top: 50px;
-      bottom: 0px;
-      left: 0px;
-      right: 0px;
-    }
-
-    #map .ol-zoom {
-      font-size: 1.2em;
-    }
-
-    .zoom-top-opened-sidebar {
-      margin-top: 5px;
-    }
-
-    .zoom-top-collapsed {
-      margin-top: 45px;
-    }
-
-    .mini-submenu {
-      display: none;
-      background-color: rgba(255, 255, 255, 0.46);
-      border: 1px solid rgba(0, 0, 0, 0.9);
-      border-radius: 4px;
-      padding: 9px;
-      /*position: relative;*/
-      width: 42px;
-      text-align: center;
-    }
-
-    .mini-submenu-left {
-      position: absolute;
-      top: 60px;
-      left: .5em;
-      z-index: 40;
-    }
-
-    .mini-submenu-right {
-      position: absolute;
-      top: 60px;
-      right: .5em;
-      z-index: 40;
-    }
-
-    #map {
-      z-index: 35;
-    }
-
-    .sidebar {
-      z-index: 45;
-    }
-
-    .main-row {
-      position: relative;
-      top: 0;
-    }
-
-    .mini-submenu:hover {
-      cursor: pointer;
-    }
-
-    .slide-submenu {
-      background: rgba(0, 0, 0, 0.45);
-      display: inline-block;
-      padding: 0 8px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
   </style>
   <script type="text/javascript" src="../assets/js/ol.js"></script>
+  <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+  <script type="text/javascript" src="../assets/js/ol-layerswitcher.js"></script>
+  <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
   <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
   <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
   <script type="text/javascript">
@@ -165,62 +94,6 @@
 
       $(window).on("resize", applyMargins);
 
-      var map = new ol.Map({
-        target: 'map',
-        layers: [
-          new ol.layer.Group({
-            'title': 'Base maps',
-            layers: [
-              new ol.layer.Tile({
-                title: 'Satellite',
-                type: 'base',
-                visible: false,
-                preload: Infinity,
-                source: new ol.source.BingMaps({
-                  key: 'AuzXTgnihF-J1PX_F29Q9WGFEuhxpEqYlZDI99O2LPMHuAO0UCNoGcg9_sT0YQeI',
-                  imagerySet: 'Aerial'
-                })
-              }),
-              new ol.layer.Tile({
-                title: 'OSM',
-                type: 'base',
-                visible: true,
-                source: new ol.source.OSM()
-              })
-            ]
-          }),
-          new ol.layer.Group({
-            title: 'Overlays',
-            layers: [
-              new ol.layer.Image({
-                title: 'EEZ Boundaries',
-                source: new ol.source.ImageWMS({
-                  params: {
-                    'LAYERS': 'MarineRegions:eez_boundaries'
-                  },
-                  url: 'http://geo.vliz.be/geoserver/MarineRegions/wms?',
-                  serverType: 'geoserver'
-                })
-              }),
-              new ol.layer.Image({
-                title: "Blocks",
-                source: new ol.source.ImageWMS({
-                  url: 'http://www.openpetro.com/geoserver/mapstand/wms?',
-                  params: {
-                    'LAYERS': 'mapstand:licenced_blocks'
-                  },
-                  serverType: 'geoserver'
-                })
-              }),
-            ]
-          })
-        ],
-        view: new ol.View({
-          center: ol.proj.transform([4.40, 53.00], 'EPSG:4326', 'EPSG:3857'),
-          // <!-- extent: [0, 8000000, 1000000, 6700000], -->
-          zoom: 6
-        })
-      });
       applyInitialUIState();
       applyMargins();
     });
@@ -314,9 +187,13 @@
   </div>
   </nav>
   <div class="navbar-offset"></div>
+  <div class="arrow_box" id="popup-container">
+    <div id="popup-content"></div>
+  </div>
   <div id="map">
   </div>
-  <div class="row main-row">
+
+  <!-- <div class="row main-row">
     <div class="col-sm-4 col-md-3 sidebar sidebar-left pull-left">
       <div class="panel-group sidebar-body" id="accordion-left">
         <div class="panel panel-default">
@@ -425,8 +302,8 @@
   </div>
   <div class="mini-submenu mini-submenu-right pull-right">
     <i class="fa fa-tasks"></i>
-  </div>
-  </div>
+  </div> -->
+
 </body>
 
 </html>

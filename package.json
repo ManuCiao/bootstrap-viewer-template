@@ -8,7 +8,7 @@
     "colormap": "^2.3.0",
     "ol": "^4.6.5",
     "ol-hashed": "^1.0.2",
-    "ol-mapbox-style": "^2.10.4"
+    "ol-mapbox-style": "^2.11.2"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
